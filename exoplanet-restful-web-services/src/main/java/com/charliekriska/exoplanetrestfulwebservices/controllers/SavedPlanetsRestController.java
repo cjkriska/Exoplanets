@@ -18,17 +18,19 @@ public class SavedPlanetsRestController {
         this.planetService = planetService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/saved-planets")
     public List<PlanetEntity> findAll() {
         return planetService.findAll();
     }
-
+    
     // TODO
     @GetMapping("/saved-planets/{planetId}")
     public PlanetEntity getPlanet(@PathVariable int planetId) {
         return null;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/saved-planets")
     public PlanetEntity addPlanet(@RequestBody PlanetEntity planetEntity) {
         planetEntity.setId(0);
@@ -44,10 +46,16 @@ public class SavedPlanetsRestController {
         return planetEntity;
     }
 
-    // TODO
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("saved-planets/{planetId}")
     public String deletePlanet(@PathVariable int planetId) {
-        return null;
+        PlanetEntity planetEntity = planetService.findById(planetId);
+        if(planetEntity == null) {
+            throw new RuntimeException("PlanetEntity id not found: " + planetId);
+        }
+        planetService.deleteById(planetId);
+        return "Deleted planetEntity id: " + planetId;
     }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlanetServiceImpl implements PlanetService {
@@ -22,10 +23,16 @@ public class PlanetServiceImpl implements PlanetService {
         return planetRepository.findAll();
     }
 
-    // TODO
     @Override
     public PlanetEntity findById(int id) {
-        return null;
+        Optional<PlanetEntity> result = planetRepository.findById(id);
+        PlanetEntity planetEntity = null;
+        if(result.isPresent()) {
+            planetEntity = result.get();
+        } else {
+            throw new RuntimeException("Did not find planetEntity id: " + id);
+        }
+        return planetEntity;
     }
 
     @Override

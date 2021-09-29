@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +26,7 @@ public class PlanetListController {
         this.url = url;
     }
 
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/list")
     public List<Planet> getPlanets() {
         ResponseEntity<List<Planet>> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null,
