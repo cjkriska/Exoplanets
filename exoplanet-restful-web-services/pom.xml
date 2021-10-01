@@ -11,6 +11,7 @@
     <groupId>com.charliekriska</groupId>
     <artifactId>exoplanet-restful-web-services</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
     <name>exoplanet-restful-web-services</name>
     <description>ExoPlanet backend API</description>
     <properties>
