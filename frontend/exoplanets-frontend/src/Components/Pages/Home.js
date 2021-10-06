@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-// import InfiniteScroll from 'react-infinite-scroll-component';
+import Popup from 'reactjs-popup';
+import Content from '../Content';
+import 'reactjs-popup/dist/index.css';
 
 function Home(props) {
 
@@ -116,7 +118,6 @@ function Home(props) {
 
     return (
             <table className="table table-dark table-striped table-hover">
-
                 <thead>
                     <tr>
                         <th>Planet Name <i onClick={sortByName} className="fas fa-sort"></i></th>
@@ -131,21 +132,25 @@ function Home(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((planet, index) => (
-                        <tr key={index}>
-                            <td>{planet.pl_name}</td>
-                            <td>{planet.hostname}</td>
-                            <td>{planet.pl_bmasse}</td>
-                            <td>{planet.pl_rade}</td>
-                            <td>{planet.pl_eqt}</td>
-                            <td>{planet.discoverymethod}</td>
-                            <td>{planet.disc_year}</td>
-                            <td>{planet.sy_dist}</td>
-                            <td>
-                                <button onClick={() => {handleSaveClick(planet)}} className="btn btn-outline-success btn-sm">Save</button>
-                            </td>
-                        </tr>
-                    ))}
+                    {data.map((planet, index) => 
+                        <Popup  key={index} modal trigger={
+                            <tr>
+                                <td>{planet.pl_name}</td>
+                                <td>{planet.hostname}</td>
+                                <td>{planet.pl_bmasse}</td>
+                                <td>{planet.pl_rade}</td>
+                                <td>{planet.pl_eqt}</td>
+                                <td>{planet.discoverymethod}</td>
+                                <td>{planet.disc_year}</td>
+                                <td>{planet.sy_dist}</td>
+                                <td>
+                                    <button onClick={() => {handleSaveClick(planet)}} className="btn btn-outline-success btn-sm">Save</button>
+                                </td>
+                            </tr>
+                        }>
+                            {close => <Content planet={planet} close={close}/>}
+                        </Popup>
+                    )}
                 </tbody>
             </table>
     );
