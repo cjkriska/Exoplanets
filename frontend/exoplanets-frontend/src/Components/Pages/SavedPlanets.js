@@ -7,7 +7,7 @@ function SavedPlanets() {
     const [status, setStatus] = useState();
 
     useEffect((status) => {
-        fetch("http://localhost:8080/api/saved-planets")
+        fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets")
           .then(res => res.json())
           .then(res => {
             setSavedData(res);
@@ -18,7 +18,7 @@ function SavedPlanets() {
 
     
     const handleDeleteClick = (id) => {
-        fetch("http://localhost:8080/api/saved-planets/" + id, {
+        fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets" + id, {
             method: "DELETE",
         })
         .then(() => setStatus("Delete Successful: " + id));

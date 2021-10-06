@@ -13,7 +13,7 @@ function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/list")
+    fetch("https://vast-wave-53428.herokuapp.com/list")
       .then(res => res.json())
       .then(res => {
         setData(res);

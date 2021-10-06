@@ -21,7 +21,7 @@ function Home(props) {
 
     const handleSaveClick = (planet) => {
         console.log(planet);
-        fetch("http://localhost:8080/api/saved-planets", {
+        fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets", {
             method: "post",
             headers: {
                 'Accept': 'application/json',
