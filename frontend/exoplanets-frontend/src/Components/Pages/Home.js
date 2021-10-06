@@ -116,6 +116,17 @@ function Home(props) {
     };
     // ----------------------------------------------------------------------------
 
+    // Takes planet and returns array of planets with same host
+    const findSystem = (planet) => {
+        let pl_array = [];
+        for(let i=0; i < data.length; i++) {
+            if(data[i].hostname === planet.hostname) {
+                pl_array.push(data[i]);
+            }
+        }
+        return pl_array;
+    };
+
     return (
             <table className="table table-dark table-striped table-hover">
                 <thead>
@@ -148,7 +159,7 @@ function Home(props) {
                                 </td>
                             </tr>
                         }>
-                            {close => <Content planet={planet} close={close}/>}
+                            {close => <Content planet={planet} system={findSystem(planet)} close={close}/>}
                         </Popup>
                     )}
                 </tbody>

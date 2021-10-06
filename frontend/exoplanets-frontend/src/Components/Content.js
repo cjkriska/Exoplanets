@@ -2,24 +2,21 @@ import React from 'react';
 
 function Content(props) {
 
-    const {planet, close} = props;
+    const {planet, system, close} = props;
 
     return (
         <div>
             <div className="close" onClick={close}>
                 &times;
             </div>
-            <div className="header"><h1>{planet.pl_name}</h1></div>
+            <div className="header"><h1>{planet.hostname} System</h1></div>
             <div className="content">
                 <ul>
-                    <li>Planet: {planet.pl_name}</li>
-                    <li>Host: {planet.hostname}</li>
-                    <li>Mass: {planet.pl_bmasse}</li>
-                    <li>Radius: {planet.pl_rade}</li>
-                    <li>Temp: {planet.pl_eqt}</li>
-                    <li>Disc Method: {planet.discoverymethod}</li>
-                    <li>Disc Year: {planet.disc_year}</li>
-                    <li>Distance: {planet.sy_dist}</li>
+                {
+                    system.map((planet, index) => 
+                        <li key={index}>{planet.pl_name}</li>
+                    )
+                }
                 </ul>
             </div>
         </div>
