@@ -18,7 +18,7 @@ public class SavedPlanetsRestController {
         this.planetService = planetService;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "https://exoplanets-explorer.herokuapp.com"})
     @GetMapping("/saved-planets")
     public List<PlanetEntity> findAll() {
         return planetService.findAll();
@@ -30,7 +30,7 @@ public class SavedPlanetsRestController {
         return null;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "https://exoplanets-explorer.herokuapp.com"})
     @PostMapping("/saved-planets")
     public PlanetEntity addPlanet(@RequestBody PlanetEntity planetEntity) {
         planetEntity.setId(0);
@@ -47,7 +47,7 @@ public class SavedPlanetsRestController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "https://exoplanets-explorer.herokuapp.com"})
     @DeleteMapping("saved-planets/{planetId}")
     public String deletePlanet(@PathVariable int planetId) {
         PlanetEntity planetEntity = planetService.findById(planetId);

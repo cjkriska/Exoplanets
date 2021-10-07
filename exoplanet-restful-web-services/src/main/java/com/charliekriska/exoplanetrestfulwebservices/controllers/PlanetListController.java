@@ -26,7 +26,7 @@ public class PlanetListController {
         this.url = url;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "https://exoplanets-explorer.herokuapp.com"})
     @GetMapping("/list")
     public List<Planet> getPlanets() {
         ResponseEntity<List<Planet>> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null,
