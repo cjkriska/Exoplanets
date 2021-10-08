@@ -14,6 +14,7 @@ function Home(props) {
     const [discMethodSortAsc, setDiscMethodSortAsc] = useState(false);
     const [discYearSortAsc, setDiscYearSortAsc] = useState(false);
     const [distanceSortAsc, setDistanceSortAsc] = useState(false);
+    const [planetSortAsc, setPlanetSortAsc] = useState(false);
   
     useEffect(() => {
       setData(props.planetData);
@@ -114,6 +115,16 @@ function Home(props) {
         setDistanceSortAsc(false);
         }
     };
+    const sortByPlanNum = () => {
+        let d = [...data];
+        if(!planetSortAsc) {
+        setData(d.sort((a,b) => (findSystem(a).length > findSystem(b).length) ? 1 : -1));
+        setPlanetSortAsc(true);
+        } else {
+        setData(d.sort((a,b) => (findSystem(a).length > findSystem(b).length) ? -1 : 1));
+        setPlanetSortAsc(false);
+        }
+    };
     // ----------------------------------------------------------------------------
 
     // Takes planet and returns array of planets with same host
@@ -133,6 +144,7 @@ function Home(props) {
                     <tr>
                         <th>Planet Name <i onClick={sortByName} className="fas fa-sort"></i></th>
                         <th>Hostname <i onClick={sortByHostname} className="fas fa-sort"></i></th>
+                        <th># Planets <i onClick={sortByPlanNum} className="fas fa-sort"></i></th>
                         <th>Mass <i onClick={sortByMass} className="fas fa-sort"></i></th>
                         <th>Radius <i onClick={sortByRadius} className="fas fa-sort"></i></th>
                         <th>Temp (K) <i onClick={sortByTemp} className="fas fa-sort"></i></th>
@@ -148,6 +160,7 @@ function Home(props) {
                             <tr>
                                 <td>{planet.pl_name}</td>
                                 <td>{planet.hostname}</td>
+                                <td>{findSystem(planet).length}</td>
                                 <td>{planet.pl_bmasse}</td>
                                 <td>{planet.pl_rade}</td>
                                 <td>{planet.pl_eqt}</td>

@@ -20,7 +20,7 @@ body {
 .star {
   width: 200px;
   height: 200px;
-  margin: 15px;
+  margin: 30px;
   border-radius: 50%;
   background-color: #ffd900;
   animation: sunGlow 1s infinite alternate;
@@ -45,6 +45,11 @@ body {
 
 
 /* -------------- Popup CSS --------------- */
+.popup {
+  background-color: #191516;
+  color: #C9DAEA;
+  padding: 20px;
+}
 .close {
   cursor: pointer;
   position: absolute;
@@ -57,6 +62,7 @@ body {
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;
+  color: black;
 }
 
 /* Animation */

@@ -37,7 +37,7 @@ function Content(props) {
     };
 
     return (
-        <div>
+        <div className="popup">
             <div className="close" onClick={close}>
                 &times;
             </div>
@@ -54,7 +54,14 @@ function Content(props) {
                     <div className="star"/>
                     {
                         system.map((planet, index) =>
-                            <div className="planet" style={{width: calcPlanetDiam(planet.pl_rade), height: calcPlanetDiam(planet.pl_rade), backgroundColor: calcPlanetColor(planet.pl_eqt)}} key={index}/>
+                            <div className="planet" 
+                                 style={{
+                                            width: calcPlanetDiam(planet.pl_rade), 
+                                            height: calcPlanetDiam(planet.pl_rade),
+                                            background: "radial-gradient(circle at "+ calcPlanetDiam(planet.pl_rade)/3 +"px " + calcPlanetDiam(planet.pl_rade)/3 + "px, " + calcPlanetColor(planet.pl_eqt) + ", #000)"
+                                        }} 
+                                 key={index}
+                            />
                         )
                     }
                 </div>
