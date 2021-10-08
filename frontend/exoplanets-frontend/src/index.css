@@ -12,6 +12,38 @@ body {
   margin-bottom: 10px;
 }
 
+/* -------------- Star System CSS --------- */
+.system-container {
+  display: flex;
+  align-items: center;
+}
+.star {
+  width: 200px;
+  height: 200px;
+  margin: 15px;
+  border-radius: 50%;
+  background-color: #ffd900;
+  animation: sunGlow 1s infinite alternate;
+}
+@keyframes sunGlow {
+  from {
+    box-shadow: 0 0 10px 8px #FFC400;
+  } to {
+    box-shadow: 0 0 10px 10px #FFC400;
+  }
+}
+
+.planet {
+  width: 50px;
+  height: 50px;
+  margin: 8px;
+  border-radius: 50%;
+  background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+
 /* -------------- Popup CSS --------------- */
 .close {
   cursor: pointer;
@@ -57,3 +89,5 @@ body {
 .sort-icons {
   display: inline-block;
 } */
+
+
