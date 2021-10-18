@@ -55,6 +55,16 @@ function Home(props) {
         setHostnameSortAsc(false);
         }
     };
+    const sortByPlanNum = () => {
+        let d = [...data];
+        if(!planetSortAsc) {
+        setData(d.sort((a,b) => (findSystem(a).length > findSystem(b).length) ? 1 : -1));
+        setPlanetSortAsc(true);
+        } else {
+        setData(d.sort((a,b) => (findSystem(a).length > findSystem(b).length) ? -1 : 1));
+        setPlanetSortAsc(false);
+        }
+    };
     const sortByMass = () => {
         let d = [...data];
         if(!massSortAsc) {
@@ -115,16 +125,6 @@ function Home(props) {
         setDistanceSortAsc(false);
         }
     };
-    const sortByPlanNum = () => {
-        let d = [...data];
-        if(!planetSortAsc) {
-        setData(d.sort((a,b) => (findSystem(a).length > findSystem(b).length) ? 1 : -1));
-        setPlanetSortAsc(true);
-        } else {
-        setData(d.sort((a,b) => (findSystem(a).length > findSystem(b).length) ? -1 : 1));
-        setPlanetSortAsc(false);
-        }
-    };
     // ----------------------------------------------------------------------------
 
     // Takes planet and returns array of planets with same host
@@ -135,6 +135,7 @@ function Home(props) {
                 pl_array.push(data[i]);
             }
         }
+        pl_array.sort((a,b) => (a.pl_eqt > b.pl_eqt) ? -1 : 1);
         return pl_array;
     };
 

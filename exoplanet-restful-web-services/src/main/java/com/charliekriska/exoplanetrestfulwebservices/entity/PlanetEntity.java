@@ -35,6 +35,9 @@ public class PlanetEntity {
     @Column(name = "sy_dist")
     private double sy_dist;
 
+    @Column(name = "pl_orbsmax")
+    private double pl_orbsmax;
+
     // Constructors
     public PlanetEntity() {}
     public PlanetEntity(String pl_name,
@@ -44,7 +47,8 @@ public class PlanetEntity {
             double pl_eqt,
             String discoverymethod,
             int disc_year,
-            double sy_dist) {
+            double sy_dist,
+                        double pl_orbsmax) {
         this.pl_name = pl_name;
         this.hostname = hostname;
         this.pl_bmasse = pl_bmasse;
@@ -53,6 +57,7 @@ public class PlanetEntity {
         this.discoverymethod = discoverymethod;
         this.disc_year = disc_year;
         this.sy_dist = sy_dist;
+        this.pl_orbsmax = pl_orbsmax;
     }
 
     // Getters & Setters
@@ -109,5 +114,9 @@ public class PlanetEntity {
     }
     public void setSy_dist(double sy_dist) {
         this.sy_dist = sy_dist;
+    }
+    public double getPl_orbsmax() { return pl_orbsmax; }
+    public void setPl_orbsmax(double pl_orbsmax) {
+        this.pl_orbsmax = pl_orbsmax;
     }
 }

@@ -10,9 +10,10 @@ public class Planet {
     private String discoverymethod;
     private int disc_year;
     private double sy_dist;
+    private double pl_orbsmax;
 
     public Planet() {}
-    public Planet(String pl_name, String hostname, double pl_bmasse, double pl_rade, double pl_eqt, String discoverymethod, int disc_year, double sy_dist) {
+    public Planet(String pl_name, String hostname, double pl_bmasse, double pl_rade, double pl_eqt, String discoverymethod, int disc_year, double sy_dist, double pl_orbsmax) {
         this.pl_name = pl_name;
         this.hostname = hostname;
         this.pl_bmasse = pl_bmasse;
@@ -21,6 +22,7 @@ public class Planet {
         this.discoverymethod = discoverymethod;
         this.disc_year = disc_year;
         this.sy_dist = sy_dist;
+        this.pl_orbsmax = pl_orbsmax;
     }
 
     public String getPl_name() {
@@ -85,5 +87,13 @@ public class Planet {
 
     public void setSy_dist(double sy_dist) {
         this.sy_dist = sy_dist;
+    }
+
+    public double getPl_orbsmax() {
+        return pl_orbsmax;
+    }
+
+    public void setPl_orbsmax(double pl_orbsmax) {
+        this.pl_orbsmax = pl_orbsmax;
     }
 }
