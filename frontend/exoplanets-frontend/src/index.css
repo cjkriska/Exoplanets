@@ -12,6 +12,22 @@ body {
   margin-bottom: 10px;
 }
 
+.clickable:hover {
+  color: rgb(255, 233, 137);
+  cursor: pointer;
+}
+
+.fa-wikipedia-w {
+  font-size: small;
+  float: right;
+  margin-right: 10px;
+  margin-top: 3%;
+}
+
+.wiki-grayed-out {
+  color: gray;
+}
+
 /* -------------- Star System CSS --------- */
 .system-container {
   display: flex;

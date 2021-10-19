@@ -128,6 +128,7 @@ function Home(props) {
     // ----------------------------------------------------------------------------
 
     // Takes planet and returns array of planets with same host
+    // Sorts by distance from star
     const findSystem = (planet) => {
         let pl_array = [];
         for(let i=0; i < data.length; i++) {
@@ -135,7 +136,7 @@ function Home(props) {
                 pl_array.push(data[i]);
             }
         }
-        pl_array.sort((a,b) => (a.pl_eqt > b.pl_eqt) ? -1 : 1);
+        pl_array.sort((a,b) => (a.pl_orbsmax > b.pl_orbsmax) ? 1 : -1);
         return pl_array;
     };
 
@@ -143,38 +144,37 @@ function Home(props) {
             <table className="table table-dark table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Planet Name <i onClick={sortByName} className="fas fa-sort"></i></th>
-                        <th>Hostname <i onClick={sortByHostname} className="fas fa-sort"></i></th>
-                        <th># Planets <i onClick={sortByPlanNum} className="fas fa-sort"></i></th>
-                        <th>Mass <i onClick={sortByMass} className="fas fa-sort"></i></th>
-                        <th>Radius <i onClick={sortByRadius} className="fas fa-sort"></i></th>
-                        <th>Temp (K) <i onClick={sortByTemp} className="fas fa-sort"></i></th>
-                        <th>Discovery Method <i onClick={sortByDiscMethod} className="fas fa-sort"></i></th>
-                        <th>Discovery Year <i onClick={sortByDiscYear} className="fas fa-sort"></i></th>
-                        <th>Distance <i onClick={sortByDistance} className="fas fa-sort"></i></th>
+                        <th>Planet Name <i onClick={sortByName} className="fas fa-sort clickable"></i></th>
+                        <th>Hostname <i onClick={sortByHostname} className="fas fa-sort clickable"></i></th>
+                        <th># Planets <i onClick={sortByPlanNum} className="fas fa-sort clickable"></i></th>
+                        <th>Mass <i onClick={sortByMass} className="fas fa-sort clickable"></i></th>
+                        <th>Radius <i onClick={sortByRadius} className="fas fa-sort clickable"></i></th>
+                        <th>Temp (K) <i onClick={sortByTemp} className="fas fa-sort clickable"></i></th>
+                        <th>Discovery Method <i onClick={sortByDiscMethod} className="fas fa-sort clickable"></i></th>
+                        <th>Discovery Year <i onClick={sortByDiscYear} className="fas fa-sort clickable"></i></th>
+                        <th>Distance (LY) <i onClick={sortByDistance} className="fas fa-sort clickable"></i></th>
                         <th>Save</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((planet, index) => 
-                        <Popup  key={index} modal trigger={
-                            <tr>
-                                <td>{planet.pl_name}</td>
-                                <td>{planet.hostname}</td>
-                                <td>{findSystem(planet).length}</td>
-                                <td>{planet.pl_bmasse}</td>
-                                <td>{planet.pl_rade}</td>
-                                <td>{planet.pl_eqt}</td>
-                                <td>{planet.discoverymethod}</td>
-                                <td>{planet.disc_year}</td>
-                                <td>{planet.sy_dist}</td>
-                                <td>
-                                    <button onClick={() => {handleSaveClick(planet)}} className="btn btn-outline-success btn-sm">Save</button>
-                                </td>
-                            </tr>
-                        }>
-                            {close => <Content planet={planet} system={findSystem(planet)} close={close}/>}
-                        </Popup>
+                                <tr key={index}>
+                                    <td>{planet.pl_name} <i onClick={() => {window.open("https://en.wikipedia.org/wiki/" + planet.pl_name, "_blank")}} className="fab fa-wikipedia-w clickable"></i></td>
+                                    <Popup modal trigger={<td className="clickable">{planet.hostname}</td>}>
+                                        {close => <Content planet={planet} system={findSystem(planet)} close={close}/>}
+                                    </Popup>
+                                    <td>{findSystem(planet).length}</td>
+                                    <td>{planet.pl_bmasse.toFixed(2)}</td>
+                                    <td>{planet.pl_rade}</td>
+                                    <td>{planet.pl_eqt}</td>
+                                    <td>{planet.discoverymethod}</td>
+                                    <td>{planet.disc_year}</td>
+                                    <td>{(planet.sy_dist*3.26156).toFixed(2)}</td> 
+                                    <td>
+                                        <button onClick={() => {handleSaveClick(planet)}} className="btn btn-outline-success btn-sm">Save</button>
+                                    </td>
+                                </tr>
+                        
                     )}
                 </tbody>
             </table>

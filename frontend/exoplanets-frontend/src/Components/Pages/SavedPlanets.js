@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import Popup from 'reactjs-popup';
+import Content from '../Content';
+import 'reactjs-popup/dist/index.css';
 
 
 function SavedPlanets() {
@@ -18,12 +21,24 @@ function SavedPlanets() {
 
     
     const handleDeleteClick = (id) => {
-        fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets" + id, {
+        fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets/" + id, {
             method: "DELETE",
         })
         .then(() => setStatus("Delete Successful: " + id));
     }
 
+    // Takes planet and returns array of planets with same host
+    // Sorts by distance from star
+    const findSystem = (planet) => {
+        let pl_array = [];
+        for(let i=0; i < savedData.length; i++) {
+            if(savedData[i].hostname === planet.hostname) {
+                pl_array.push(savedData[i]);
+            }
+        }
+        pl_array.sort((a,b) => (a.pl_orbsmax > b.pl_orbsmax) ? 1 : -1);
+        return pl_array;
+    };
 
     return (
         <div>
@@ -45,8 +60,10 @@ function SavedPlanets() {
                 <tbody>
                     {savedData.map((planet, index) => (
                         <tr key={index}>
-                            <td>{planet.pl_name}</td>
-                            <td>{planet.hostname}</td>
+                            <td>{planet.pl_name} <i onClick={() => {window.open("https://en.wikipedia.org/wiki/" + planet.pl_name, "_blank")}} className="fab fa-wikipedia-w clickable"></i></td>
+                            <Popup modal trigger={<td className="clickable">{planet.hostname}</td>}>
+                                {close => <Content planet={planet} system={findSystem(planet)} close={close}/>}
+                            </Popup>
                             <td>{planet.pl_bmasse}</td>
                             <td>{planet.pl_rade}</td>
                             <td>{planet.pl_eqt}</td>
