@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {useAlert} from 'react-alert';
 import Popup from 'reactjs-popup';
 import Content from '../Content';
 import 'reactjs-popup/dist/index.css';
@@ -19,12 +20,18 @@ function SavedPlanets() {
           });
       }, [status]);
 
+
+    const alert = useAlert();
+
     
-    const handleDeleteClick = (id) => {
-        fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets/" + id, {
+    const handleDeleteClick = (planet) => {
+        fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets/" + planet.id, {
             method: "DELETE",
         })
-        .then(() => setStatus("Delete Successful: " + id));
+        .then(() => {
+            setStatus("Delete Successful: " + planet.id);
+            alert.show("Successfully Deleted " + planet.pl_name);
+        });
     }
 
     // Takes planet and returns array of planets with same host
@@ -53,7 +60,7 @@ function SavedPlanets() {
                         <th>Temp (K) <i className="fas fa-sort"></i></th>
                         <th>Discovery Method <i className="fas fa-sort"></i></th>
                         <th>Discovery Year <i className="fas fa-sort"></i></th>
-                        <th>Distance <i className="fas fa-sort"></i></th>
+                        <th>Distance (LY)<i className="fas fa-sort"></i></th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -64,14 +71,14 @@ function SavedPlanets() {
                             <Popup modal trigger={<td className="clickable">{planet.hostname}</td>}>
                                 {close => <Content planet={planet} system={findSystem(planet)} close={close}/>}
                             </Popup>
-                            <td>{planet.pl_bmasse}</td>
+                            <td>{planet.pl_bmasse.toFixed(2)}</td>
                             <td>{planet.pl_rade}</td>
                             <td>{planet.pl_eqt}</td>
                             <td>{planet.discoverymethod}</td>
                             <td>{planet.disc_year}</td>
-                            <td>{planet.sy_dist}</td>
+                            <td>{(planet.sy_dist*3.26156).toFixed(2)}</td>
                             <td>
-                                <button onClick={() => {handleDeleteClick(planet.id)}} className="btn btn-outline-danger btn-sm">Delete</button>
+                                <button onClick={() => {handleDeleteClick(planet)}} className="btn btn-outline-danger btn-sm">Delete</button>
                             </td>
                         </tr>
                     ))}

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {useAlert} from 'react-alert';
 import Popup from 'reactjs-popup';
 import Content from '../Content';
 import 'reactjs-popup/dist/index.css';
@@ -6,6 +7,7 @@ import 'reactjs-popup/dist/index.css';
 function Home(props) {
 
     const [data, setData] = useState([]);
+
     const [nameSortAsc, setNameSortAsc] = useState(false);
     const [hostnameSortAsc, setHostnameSortAsc] = useState(false);
     const [massSortAsc, setMassSortAsc] = useState(false);
@@ -15,10 +17,13 @@ function Home(props) {
     const [discYearSortAsc, setDiscYearSortAsc] = useState(false);
     const [distanceSortAsc, setDistanceSortAsc] = useState(false);
     const [planetSortAsc, setPlanetSortAsc] = useState(false);
+    const [specTypeSortAsc, setSpecTypeSortAsc] = useState(false);
   
     useEffect(() => {
       setData(props.planetData);
     }, [props.planetData]);
+
+    const alert = useAlert();
 
     const handleSaveClick = (planet) => {
         console.log(planet);
@@ -29,7 +34,10 @@ function Home(props) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(planet)
-        });
+        }).then(
+            () => alert.show("Saved " + planet.pl_name + " to Saved Planets!")
+        );
+
     };
 
 
@@ -67,33 +75,60 @@ function Home(props) {
     };
     const sortByMass = () => {
         let d = [...data];
-        if(!massSortAsc) {
-        setData(d.sort((a,b) => (a.pl_bmasse > b.pl_bmasse) ? 1 : -1));
-        setMassSortAsc(true);
-        } else {
-        setData(d.sort((a,b) => (a.pl_bmasse > b.pl_bmasse) ? -1 : 1));
-        setMassSortAsc(false);
-        }
+        setData(d.sort(
+            (a,b) => {
+                if(a.pl_bmasse === b.pl_bmasse) {
+                    return 0;
+                } else if(a.pl_bmasse === 0) {
+                    return 1;
+                } else if(b.pl_bmasse === 0) {
+                    return -1;
+                } else if(!massSortAsc) {
+                    return a.pl_bmasse > b.pl_bmasse ? 1 : -1;
+                } else {
+                    return a.pl_bmasse > b.pl_bmasse ? -1 : 1;
+                }
+            }
+        ));
+        setMassSortAsc(!massSortAsc);
     };
     const sortByRadius = () => {
         let d = [...data];
-        if(!radiusSortAsc) {
-        setData(d.sort((a,b) => (a.pl_rade > b.pl_rade) ? 1 : -1));
-        setRadiusSortAsc(true);
-        } else {
-        setData(d.sort((a,b) => (a.pl_rade > b.pl_rade) ? -1 : 1));
-        setRadiusSortAsc(false);
-        }
+        setData(d.sort(
+            (a,b) => {
+                if(a.pl_rade === b.pl_rade) {
+                    return 0;
+                } else if(a.pl_rade === 0) {
+                    return 1;
+                } else if(b.pl_rade === 0) {
+                    return -1;
+                } else if(!radiusSortAsc) {
+                    return a.pl_rade > b.pl_rade ? 1 : -1;
+                } else {
+                    return a.pl_rade > b.pl_rade ? -1 : 1;
+                }
+            }
+        ));
+        setRadiusSortAsc(!radiusSortAsc);
     };
     const sortByTemp = () => {
         let d = [...data];
-        if(!tempSortAsc) {
-        setData(d.sort((a,b) => (a.pl_eqt > b.pl_eqt) ? 1 : -1));
-        setTempSortAsc(true);
-        } else {
-        setData(d.sort((a,b) => (a.pl_eqt > b.pl_eqt) ? -1 : 1));
-        setTempSortAsc(false);
-        }
+        setData(d.sort(
+            (a,b) => {
+                if(a.pl_eqt === b.pl_eqt) {
+                    return 0;
+                } else if(a.pl_eqt === 0) {
+                    return 1;
+                } else if(b.pl_eqt === 0) {
+                    return -1;
+                } else if(!tempSortAsc) {
+                    return a.pl_eqt > b.pl_eqt ? 1 : -1;
+                } else {
+                    return a.pl_eqt > b.pl_eqt ? -1 : 1;
+                }
+            }
+        ));
+        setTempSortAsc(!tempSortAsc);
     };
     const sortByDiscMethod = () => {
         let d = [...data];
@@ -117,13 +152,41 @@ function Home(props) {
     };
     const sortByDistance = () => {
         let d = [...data];
-        if(!distanceSortAsc) {
-        setData(d.sort((a,b) => (a.sy_dist > b.sy_dist) ? 1 : -1));
-        setDistanceSortAsc(true);
-        } else {
-        setData(d.sort((a,b) => (a.sy_dist > b.sy_dist) ? -1 : 1));
-        setDistanceSortAsc(false);
-        }
+        setData(d.sort(
+            (a,b) => {
+                if(a.sy_dist === b.sy_dist) {
+                    return 0;
+                } else if(a.sy_dist === 0) {
+                    return 1;
+                } else if(b.sy_dist === 0) {
+                    return -1;
+                } else if(!distanceSortAsc) {
+                    return a.sy_dist > b.sy_dist ? 1 : -1;
+                } else {
+                    return a.sy_dist > b.sy_dist ? -1 : 1;
+                }
+            }
+        ));
+        setDistanceSortAsc(!distanceSortAsc);
+    };
+    const sortBySpectype = () => {
+        let d = [...data];
+        setData(d.sort(
+            (a,b) => {
+                if(a.st_spectype === b.st_spectype) {
+                    return 0;
+                } else if(a.st_spectype === null) {
+                    return 1;
+                } else if(b.st_spectype === null) {
+                    return -1;
+                } else if(!specTypeSortAsc) {
+                    return a.st_spectype > b.st_spectype ? 1 : -1;
+                } else {
+                    return a.st_spectype > b.st_spectype ? -1 : 1;
+                }
+            }
+        ));
+        setSpecTypeSortAsc(!specTypeSortAsc);
     };
     // ----------------------------------------------------------------------------
 
@@ -146,6 +209,7 @@ function Home(props) {
                     <tr>
                         <th>Planet Name <i onClick={sortByName} className="fas fa-sort clickable"></i></th>
                         <th>Hostname <i onClick={sortByHostname} className="fas fa-sort clickable"></i></th>
+                        <th>SpecType <i onClick={sortBySpectype} className="fas fa-sort clickable"></i></th>
                         <th># Planets <i onClick={sortByPlanNum} className="fas fa-sort clickable"></i></th>
                         <th>Mass <i onClick={sortByMass} className="fas fa-sort clickable"></i></th>
                         <th>Radius <i onClick={sortByRadius} className="fas fa-sort clickable"></i></th>
@@ -163,6 +227,7 @@ function Home(props) {
                                     <Popup modal trigger={<td className="clickable">{planet.hostname}</td>}>
                                         {close => <Content planet={planet} system={findSystem(planet)} close={close}/>}
                                     </Popup>
+                                    <td>{planet.st_spectype}</td>
                                     <td>{findSystem(planet).length}</td>
                                     <td>{planet.pl_bmasse.toFixed(2)}</td>
                                     <td>{planet.pl_rade}</td>

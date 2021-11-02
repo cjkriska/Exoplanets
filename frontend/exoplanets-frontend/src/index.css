@@ -24,30 +24,65 @@ body {
   margin-top: 3%;
 }
 
-.wiki-grayed-out {
-  color: gray;
-}
-
 /* -------------- Star System CSS --------- */
 .system-container {
   display: flex;
   align-items: center;
 }
+
+
 .star {
   width: 200px;
   height: 200px;
   margin: 30px;
   border-radius: 50%;
   background-color: #ffd900;
+  --glowColor: #FFC400;
   animation: sunGlow 1s infinite alternate;
 }
 @keyframes sunGlow {
   from {
-    box-shadow: 0 0 10px 8px #FFC400;
+    box-shadow: 0 0 10px 8px var(--glowColor);
   } to {
-    box-shadow: 0 0 10px 10px #FFC400;
+    box-shadow: 0 0 10px 10px var(--glowColor);
   }
 }
+.O {
+  background-color: violet;
+  --glowColor: rgb(211, 114, 211);
+  animation: sunGlow 1s infinite alternate;
+}
+.B {
+  background-color: rgb(104, 104, 255);
+  --glowColor: rgb(83, 83, 206);
+  animation: sunGlow 1s infinite alternate;
+}
+.A {
+  background-color: cyan;
+  --glowColor: rgb(0, 226, 226);
+  animation: sunGlow 1s infinite alternate;
+}
+.F {
+  background-color: lightblue;
+  --glowColor: rgb(156, 196, 209);
+  animation: sunGlow 1s infinite alternate;
+}
+.G {
+  background-color: lightyellow;
+  --glowColor: rgb(216, 216, 178);
+  animation: sunGlow 1s infinite alternate;
+}
+.K {
+  background-color: orangered;
+  --glowColor: rgb(223, 52, 0);
+  animation: sunGlow 1s infinite alternate;
+}
+.M {
+  background-color: red;
+  --glowColor: rgb(221, 52, 0);
+  animation: sunGlow 1s infinite alternate;
+}
+
 
 .planet {
   width: 50px;
@@ -79,6 +114,50 @@ body {
   border-radius: 18px;
   border: 1px solid #cfcece;
   color: black;
+}
+
+/* Info Box */
+.info-button {
+  float: right;
+  border-radius: 50%;
+  font-size: x-small;
+}
+.info-box {
+  background-color: #4b5055;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5%;
+}
+.info-stars {
+
+}
+.info-star {
+  border-radius: 50%;
+  text-align: center;
+  margin: 2px;
+}
+.info-temps {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.info-temp1 {
+  background-image: linear-gradient(rgb(0, 0, 255), rgb(0, 255, 255));
+  padding: 6%;
+}
+.info-temp2 {
+  background-image: linear-gradient(rgb(0, 255, 100), rgb(100, 255, 0));
+  padding: 6%;
+}
+.info-temp3 {
+  background-image: linear-gradient(rgb(255, 255, 0), rgb(255, 0, 0));
+  padding: 6%;
+}
+.info-temp4 {
+  background-color: rgb(150, 150, 150);
+  padding: 6%;
 }
 
 /* Animation */

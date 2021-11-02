@@ -1,4 +1,5 @@
 import React from 'react';
+import Popup from 'reactjs-popup';
 
 function Content(props) {
 
@@ -43,6 +44,31 @@ function Content(props) {
             </div>
             <div className="header"><h1>{planet.hostname} System</h1></div>
             <div className="content">
+                <Popup trigger={<button className="info-button"><i className="fas fa-info"></i></button>}
+                       position="bottom right"
+                       closeOnDocumentClick
+                >
+                    <span className="info-box">
+                        <div className="info-stars">
+                            <p style={{color: "white"}}>Star</p>
+                            <div className="info-star" style={{backgroundColor: "violet"}}>O</div>
+                            <div className="info-star" style={{backgroundColor: "rgb(104, 104, 255)"}}>B</div>
+                            <div className="info-star" style={{backgroundColor: "cyan"}}>A</div>
+                            <div className="info-star" style={{backgroundColor: "lightblue"}}>F</div>
+                            <div className="info-star" style={{backgroundColor: "lightyellow"}}>G</div>
+                            <div className="info-star" style={{backgroundColor: "orangered"}}>K</div>
+                            <div className="info-star" style={{backgroundColor: "red"}}>M</div>
+                            <div className="info-star" style={{backgroundColor: "#ffd900"}}>NA</div>
+                        </div>
+                        <div className="info-temps">
+                            <p style={{color: "white"}}>Planet Temp</p>
+                            <div className="info-temp1">0 - 273</div>
+                            <div className="info-temp2" >273 - 373</div>
+                            <div className="info-temp3" >373 - 4050</div>
+                            <div className="info-temp4" >No Data</div>
+                        </div>
+                    </span>
+                </Popup>
                 <ul>
                 {
                     system.map((planet, index) => 
@@ -51,7 +77,7 @@ function Content(props) {
                 }
                 </ul>
                 <div className="system-container">
-                    <div className="star"/>
+                    <div className={"star " + (planet.st_spectype ? planet.st_spectype.charAt(0) : "")}/>
                     {
                         system.map((planet, index) =>
                             <div className="planet" 
