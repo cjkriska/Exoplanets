@@ -115,6 +115,11 @@ body {
   border: 1px solid #cfcece;
   color: black;
 }
+.real-mode {
+  float: right;
+}
+
+
 
 /* Info Box */
 .info-button {
@@ -136,7 +141,9 @@ body {
 .info-star {
   border-radius: 50%;
   text-align: center;
-  margin: 2px;
+  font-size: small;
+  padding: 3px;
+  margin: 7px;
 }
 .info-temps {
   display: flex;
@@ -158,6 +165,59 @@ body {
 .info-temp4 {
   background-color: rgb(150, 150, 150);
   padding: 6%;
+}
+
+/* Planet Info */
+.planet-container {
+  display: flex;
+  justify-content: space-between;
+}
+.planet-info-type-box {
+  display: flex;
+  font-size: small;
+  background-color: #3d4349;
+  padding: 2%;
+  width: 50%;
+  align-items: center;
+  justify-content: space-between;
+}
+.planet-info {
+  display: flex;
+  flex-direction: column;
+}
+.planet-type {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin: 5px;
+  background-color: gray;
+}
+.planet-name {
+  font-size: large;
+  font-style: italic;
+  color: rgb(168, 168, 255);
+}
+.Terrestrial {
+  background: url(Images/terrestrial.png) burlywood;
+  background-size: contain;
+}
+.Super-Earth {
+  background: url(Images/super-earth.png) brown;
+  background-size: contain;
+  width: 85px;
+  height: 85px;
+}
+.Neptune-Like {
+  background: url(Images/neptune-like.png) blueviolet;
+  background-size: contain;
+  width: 95px;
+  height: 95px;
+}
+.Gas-Giant {
+  background: url(Images/gas-giant.png) yellow;
+  background-size: contain;
+  width: 110px;
+  height: 110px;
 }
 
 /* Animation */

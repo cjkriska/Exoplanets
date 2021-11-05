@@ -5,12 +5,14 @@ import Content from '../Content';
 import 'reactjs-popup/dist/index.css';
 
 
-function SavedPlanets() {
+function SavedPlanets(props) {
 
+    const [allData, setAllData] = useState([]);
     const [savedData, setSavedData] = useState([]);
     const [status, setStatus] = useState();
 
     useEffect((status) => {
+        setAllData(props.planetData);
         fetch("https://vast-wave-53428.herokuapp.com/api/saved-planets")
           .then(res => res.json())
           .then(res => {
@@ -18,7 +20,7 @@ function SavedPlanets() {
           })
           .catch(error => {console.log(error);
           });
-      }, [status]);
+      }, [status, props.planetData]);
 
 
     const alert = useAlert();
@@ -38,9 +40,9 @@ function SavedPlanets() {
     // Sorts by distance from star
     const findSystem = (planet) => {
         let pl_array = [];
-        for(let i=0; i < savedData.length; i++) {
-            if(savedData[i].hostname === planet.hostname) {
-                pl_array.push(savedData[i]);
+        for(let i=0; i < allData.length; i++) {
+            if(allData[i].hostname === planet.hostname) {
+                pl_array.push(allData[i]);
             }
         }
         pl_array.sort((a,b) => (a.pl_orbsmax > b.pl_orbsmax) ? 1 : -1);

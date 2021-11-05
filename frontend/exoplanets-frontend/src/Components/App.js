@@ -64,7 +64,7 @@ function App() {
           <Home planetData={data} />
         </Route>
         <Route path="/savedplanets">
-          <SavedPlanets />
+          <SavedPlanets planetData={data}/>
         </Route>
       </Switch>
     </div>

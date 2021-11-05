@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Popup from 'reactjs-popup';
+import InfoBox from './InfoBox';
+import PlanetInfo from './PlanetInfo';
+import terrestrial from '../Images/terrestrial.png';
+import superEarth from '../Images/super-earth.png';
+import neptuneLike from '../Images/neptune-like.png';
+import gasGiant from '../Images/gas-giant.png';
 
 function Content(props) {
 
     const {planet, system, close} = props;
+
+    const [currPlanet, setCurrPlanet] = useState(planet);
+    const [isRealistic, setIsRealistic] = useState(true);
 
     // Calculates pixel width of planet based on pl_rade (radius)
     const calcPlanetDiam = (radius) => {
@@ -12,6 +21,19 @@ function Content(props) {
         if(radius > maxPlanetRadius) maxPlanetRadius = radius;
         return (radius - minPlanetRadius)*(90/(maxPlanetRadius-minPlanetRadius)) + 10;
     };
+
+    // Finds planet type image based on mass
+    const findPlanetType = (planet) => {
+        if(planet.pl_bmasse >= 0.01 && planet.pl_bmasse < 2) {
+            return terrestrial;
+        } else if(planet.pl_bmasse >= 2 && planet.pl_bmasse < 10) {
+            return superEarth;
+        } else if(planet.pl_bmasse >= 10 && planet.pl_bmasse < 50) {
+            return neptuneLike;
+        } else if(planet.pl_bmasse >= 50) {
+            return gasGiant;
+        }
+    }
 
     // Calculates planet color based on temperature
     const calcPlanetColor = (temp) => {
@@ -42,55 +64,52 @@ function Content(props) {
             <div className="close" onClick={close}>
                 &times;
             </div>
-            <div className="header"><h1>{planet.hostname} System</h1></div>
-            <div className="content">
+            <div className="header">
                 <Popup trigger={<button className="info-button"><i className="fas fa-info"></i></button>}
                        position="bottom right"
                        closeOnDocumentClick
                 >
-                    <span className="info-box">
-                        <div className="info-stars">
-                            <p style={{color: "white"}}>Star</p>
-                            <div className="info-star" style={{backgroundColor: "violet"}}>O</div>
-                            <div className="info-star" style={{backgroundColor: "rgb(104, 104, 255)"}}>B</div>
-                            <div className="info-star" style={{backgroundColor: "cyan"}}>A</div>
-                            <div className="info-star" style={{backgroundColor: "lightblue"}}>F</div>
-                            <div className="info-star" style={{backgroundColor: "lightyellow"}}>G</div>
-                            <div className="info-star" style={{backgroundColor: "orangered"}}>K</div>
-                            <div className="info-star" style={{backgroundColor: "red"}}>M</div>
-                            <div className="info-star" style={{backgroundColor: "#ffd900"}}>NA</div>
-                        </div>
-                        <div className="info-temps">
-                            <p style={{color: "white"}}>Planet Temp</p>
-                            <div className="info-temp1">0 - 273</div>
-                            <div className="info-temp2" >273 - 373</div>
-                            <div className="info-temp3" >373 - 4050</div>
-                            <div className="info-temp4" >No Data</div>
-                        </div>
-                    </span>
+                    <InfoBox />
                 </Popup>
-                <ul>
-                {
-                    system.map((planet, index) => 
-                        <li key={index}>{planet.pl_name}</li>
-                    )
-                }
-                </ul>
+                <h1>{planet.hostname} System</h1>
+                <hr />
+            </div>
+            <div className="content">
+                <div className="planet-container">
+                    <ul>
+                    {
+                        system.map((pl, index) => 
+                            <li key={index}
+                                style={{
+                                    color: currPlanet.pl_name === pl.pl_name ? "yellow" : ""
+                                }}
+                            >
+                                {pl.pl_name}
+                            </li>
+                        )
+                    }
+                    </ul>
+                    <PlanetInfo currPlanet={currPlanet}/>
+                </div>
                 <div className="system-container">
                     <div className={"star " + (planet.st_spectype ? planet.st_spectype.charAt(0) : "")}/>
                     {
-                        system.map((planet, index) =>
-                            <div className="planet" 
+                        system.map((pl, index) =>
+                            <div onClick={() => {setCurrPlanet(pl)}}
+                                 className="planet clickable"
                                  style={{
-                                            width: calcPlanetDiam(planet.pl_rade), 
-                                            height: calcPlanetDiam(planet.pl_rade),
-                                            background: "radial-gradient(circle at "+ calcPlanetDiam(planet.pl_rade)/3 +"px " + calcPlanetDiam(planet.pl_rade)/3 + "px, " + calcPlanetColor(planet.pl_eqt) + ", #000)"
-                                        }} 
+                                            width: calcPlanetDiam(pl.pl_rade), 
+                                            height: calcPlanetDiam(pl.pl_rade),
+                                            backgroundImage: isRealistic ? "url("+findPlanetType(pl)+")" : "radial-gradient(circle at "+ calcPlanetDiam(pl.pl_rade)/3 +"px " + calcPlanetDiam(pl.pl_rade)/3 + "px, " + calcPlanetColor(pl.pl_eqt) + ", #000)",
+                                            backgroundSize: "contain",
+                                            boxShadow: currPlanet.pl_name === pl.pl_name ? "0 0 6px 4px rgba(255, 255, 255, 0.5)" : ""
+                                        }}
                                  key={index}
                             />
                         )
                     }
                 </div>
+                <button onClick={() => {setIsRealistic(!isRealistic)}} className="btn btn-dark clickable real-mode">{isRealistic ? "Real Mode On" : "Temp Mode On"}</button>
             </div>
         </div>
     );

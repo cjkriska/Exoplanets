@@ -204,20 +204,20 @@ function Home(props) {
     };
 
     return (
-            <table className="table table-dark table-striped table-hover">
-                <thead>
+            <table className="table table-dark table-striped table-hover table-sm">
+                <thead style={{position: "sticky", top: 0}}>
                     <tr>
-                        <th>Planet Name <i onClick={sortByName} className="fas fa-sort clickable"></i></th>
-                        <th>Hostname <i onClick={sortByHostname} className="fas fa-sort clickable"></i></th>
-                        <th>SpecType <i onClick={sortBySpectype} className="fas fa-sort clickable"></i></th>
-                        <th># Planets <i onClick={sortByPlanNum} className="fas fa-sort clickable"></i></th>
-                        <th>Mass <i onClick={sortByMass} className="fas fa-sort clickable"></i></th>
-                        <th>Radius <i onClick={sortByRadius} className="fas fa-sort clickable"></i></th>
-                        <th>Temp (K) <i onClick={sortByTemp} className="fas fa-sort clickable"></i></th>
-                        <th>Discovery Method <i onClick={sortByDiscMethod} className="fas fa-sort clickable"></i></th>
-                        <th>Discovery Year <i onClick={sortByDiscYear} className="fas fa-sort clickable"></i></th>
-                        <th>Distance (LY) <i onClick={sortByDistance} className="fas fa-sort clickable"></i></th>
-                        <th>Save</th>
+                        <th style={{position: "sticky", top: 0}}>Planet Name <i onClick={sortByName} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Hostname <i onClick={sortByHostname} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>SpecType <i onClick={sortBySpectype} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}># Planets <i onClick={sortByPlanNum} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Mass <i onClick={sortByMass} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Radius <i onClick={sortByRadius} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Temp (K) <i onClick={sortByTemp} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Discovery Method <i onClick={sortByDiscMethod} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Discovery Year <i onClick={sortByDiscYear} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Distance (LY) <i onClick={sortByDistance} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0}}>Save</th>
                     </tr>
                 </thead>
                 <tbody>
