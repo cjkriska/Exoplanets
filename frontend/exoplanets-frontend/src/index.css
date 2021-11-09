@@ -91,6 +91,7 @@ body {
   border-radius: 50%;
   background-color: black;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  flex: none;
 }
 
 
@@ -191,6 +192,8 @@ body {
   height: 70px;
   margin: 5px;
   background-color: gray;
+  flex: none;
+  
 }
 .planet-name {
   font-size: large;

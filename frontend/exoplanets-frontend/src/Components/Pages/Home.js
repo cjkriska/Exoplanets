@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {useAlert} from 'react-alert';
 import Popup from 'reactjs-popup';
 import Content from '../Content';
+import InfiniteScroll from 'react-infinite-scroller';
 import 'reactjs-popup/dist/index.css';
 
-function Home(props) {
+function Home({planetData}) {
 
     const [data, setData] = useState([]);
+    const [loadedData, setLoadedData] =  useState([]);
 
     const [nameSortAsc, setNameSortAsc] = useState(false);
     const [hostnameSortAsc, setHostnameSortAsc] = useState(false);
@@ -18,12 +20,25 @@ function Home(props) {
     const [distanceSortAsc, setDistanceSortAsc] = useState(false);
     const [planetSortAsc, setPlanetSortAsc] = useState(false);
     const [specTypeSortAsc, setSpecTypeSortAsc] = useState(false);
-  
-    useEffect(() => {
-      setData(props.planetData);
-    }, [props.planetData]);
-
     const alert = useAlert();
+
+    useEffect(() => {
+        setData(planetData);
+        setLoadedData(planetData.slice(0,30));
+    }, [planetData]);
+
+    useEffect(() => {
+        setLoadedData(data.slice(0,loadedData.length));
+    }, [data, loadedData.length]);
+
+    
+    const loader = () => {
+        setLoadedData(data.slice(0,loadedData.length+20));
+    };
+
+
+
+
 
     const handleSaveClick = (planet) => {
         console.log(planet);
@@ -204,24 +219,30 @@ function Home(props) {
     };
 
     return (
+        <InfiniteScroll
+            pageStart={0}
+            loadMore={loader}
+            hasMore={(data && loadedData) && (data.length > loadedData.length)}
+            loader={<div className="loader" key={0}>Loading...</div>}
+        >
             <table className="table table-dark table-striped table-hover table-sm">
                 <thead style={{position: "sticky", top: 0}}>
                     <tr>
-                        <th style={{position: "sticky", top: 0}}>Planet Name <i onClick={sortByName} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Hostname <i onClick={sortByHostname} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>SpecType <i onClick={sortBySpectype} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}># Planets <i onClick={sortByPlanNum} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Mass <i onClick={sortByMass} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Radius <i onClick={sortByRadius} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Temp (K) <i onClick={sortByTemp} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Discovery Method <i onClick={sortByDiscMethod} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Discovery Year <i onClick={sortByDiscYear} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Distance (LY) <i onClick={sortByDistance} className="fas fa-sort clickable"></i></th>
-                        <th style={{position: "sticky", top: 0}}>Save</th>
+                        <th style={{position: "sticky", top: 0, width: "16.85%"}}>Planet Name <i onClick={sortByName} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "15.32%"}}>Hostname <i onClick={sortByHostname} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "10.81%"}}>SpecType <i onClick={sortBySpectype} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "5.66%"}}># Planets <i onClick={sortByPlanNum} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "6.17%"}}>Mass <i onClick={sortByMass} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "4.77%"}}>Radius <i onClick={sortByRadius} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "9.11%"}}>Temp (K) <i onClick={sortByTemp} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "12.09%"}}>Discovery Method <i onClick={sortByDiscMethod} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "8.09%"}}>Discovery Year <i onClick={sortByDiscYear} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "7.15%"}}>Distance (LY) <i onClick={sortByDistance} className="fas fa-sort clickable"></i></th>
+                        <th style={{position: "sticky", top: 0, width: "3.98%"}}>Save</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((planet, index) => 
+                    {loadedData.map((planet, index) => 
                                 <tr key={index}>
                                     <td>{planet.pl_name} <i onClick={() => {window.open("https://en.wikipedia.org/wiki/" + planet.pl_name, "_blank")}} className="fab fa-wikipedia-w clickable"></i></td>
                                     <Popup modal trigger={<td className="clickable">{planet.hostname}</td>}>
@@ -243,6 +264,7 @@ function Home(props) {
                     )}
                 </tbody>
             </table>
+        </InfiniteScroll>
     );
 }
 
